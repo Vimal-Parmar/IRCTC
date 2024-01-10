@@ -5,8 +5,12 @@ import { Grid, TextField, Button,Link,Typography } from '@mui/material';
 import { Navigate, useNavigate } from 'react-router-dom';
 import {db} from "../firebase-config";
 import {collection,addDoc} from "firebase/firestore";
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase-config';
+
 
 function SignUp() {
+
 
     const [formData, setFormData] = useState({
         email: "",
@@ -17,23 +21,31 @@ function SignUp() {
 
     let navigate = useNavigate()
     const handleSubmit = async(event) => {
-        event.preventDefault();
-        try {
-            await addDoc(usersCollectionRef, formData);
-            navigate("/home");
-        } catch (error) {
-            console.error("Error adding document to Firestore:", error);
-        }
+            event.preventDefault();
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+                const user = userCredential.user;
+                // Add additional user data to Firestore
+                console.log(userCredential);
+                await addDoc(usersCollectionRef, {
+                    uid: user.uid,
+                    email: user.email,
+                    // Add more fields as needed
+                });
+
+                navigate("/home");
+            } catch (error) {
+                console.error("Error creating user:", error.message);
+            }
     }
 
     function handleChange(event) {
-        setFormData((prevData) => {
-            return {
-                ...prevData,
-                [event.target.name]: event.target.value
-            }
-        })
-        
+            setFormData((prevData) => {
+                return {
+                    ...prevData,
+                    [event.target.name]: event.target.value
+                }
+            })
     }
  
     return (
