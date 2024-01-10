@@ -3,16 +3,19 @@ import { useState } from 'react';
 import Paper from "@mui/material/Paper";
 import { Grid, TextField, Button, Link, Typography } from '@mui/material';
 import SignUp from "./SignUp";
-
+import { Navigate, useNavigate } from 'react-router-dom';
 function SignIn() {
   const [formData, setFormData] = useState({
     email: "",
     password: ""
   });
 
+  let navigate = useNavigate();
   function handleSubmit(event) {
     event.preventDefault();
     // Add your form submission logic here
+    navigate("/home")
+
   }
 
   function handleChange(event) {
@@ -22,6 +25,7 @@ function SignIn() {
         [event.target.name]: event.target.value
       };
     });
+    console.log(formData)
   }
 
   return (
@@ -35,9 +39,7 @@ function SignIn() {
     >
       <Grid item xs={4}>
         <Paper elevation={3} sx={{ padding: 3, textAlign: 'center', maxWidth: '400px' }}>
-          <Typography variant="h4" sx={{ marginBottom: 2 }}>
-            Sign In
-          </Typography>
+          <h2>Sign In</h2>
           <form onSubmit={handleSubmit}>
 
             <TextField
@@ -70,7 +72,7 @@ function SignIn() {
 
           </form>
           <Typography variant="body2" sx={{ marginTop: 2 }}>
-            Don't have an account? <Link href="./SignUp" variant="body2">Sign Up</Link>
+            Don't have an account? <Link href="/SignUp" variant="body2">Sign Up</Link>
           </Typography>
         </Paper>
       </Grid>

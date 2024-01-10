@@ -2,6 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import Paper from "@mui/material/Paper";
 import { Grid, TextField, Button,Link,Typography } from '@mui/material';
+import { Navigate, useNavigate } from 'react-router-dom';
+import {db} from "../firebase-config";
+import {collection,addDoc} from "firebase/firestore";
 
 function SignUp() {
 
@@ -10,8 +13,17 @@ function SignUp() {
         password: ""
     })
 
-    function handleSubmit() {
-        // Add your form submission logic here
+    const usersCollectionRef = collection(db, "Users");
+
+    let navigate = useNavigate()
+    const handleSubmit = async(event) => {
+        event.preventDefault();
+        try {
+            await addDoc(usersCollectionRef, formData);
+            navigate("/home");
+        } catch (error) {
+            console.error("Error adding document to Firestore:", error);
+        }
     }
 
     function handleChange(event) {
@@ -21,8 +33,9 @@ function SignUp() {
                 [event.target.name]: event.target.value
             }
         })
+        
     }
-
+ 
     return (
         <Grid
             container
@@ -66,7 +79,7 @@ function SignUp() {
                             Submit
                         </Button>
                         <Typography variant="body2" sx={{ marginTop: 2 }}>
-                            Alredy have an account? <Link href="./SignIn" variant="body2">Sign In</Link>
+                            Alredy have an account? <Link href="/SignIn" variant="body2">Sign In</Link>
                         </Typography>
                     </form>
                 </Paper>
