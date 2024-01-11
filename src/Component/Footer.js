@@ -12,9 +12,9 @@ const Footer = () => {
   const emailAddress = 'mailto:202101500@daiict.ac.in';
 
   return (
-    <footer style={{ marginTop: 'auto', backgroundColor: '#4169E1', padding: '20px 0', color: '#fff' }}>
+    <footer style={{ marginTop: 'auto', backgroundColor: '#B9EBFF', padding: '20px 0' }}>
       <Typography paddingLeft={2}>
-        Get connected with us on social networks:
+        Get connected with us on social networks  : {" "}
         <IconButton color="inherit" href="https://www.youtube.com/">
           <YouTubeIcon />
         </IconButton>
@@ -29,10 +29,16 @@ const Footer = () => {
         </IconButton>
       </Typography>
 
+      <hr
+        style={{
+          color: 'black',
+        }}
+      />
+
       <Container maxWidth="lg">
-        <Grid container spacing={2}>
+        <Grid container spacing={6}>
           {/* First Column */}
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5}>
             <Typography variant="h6" gutterBottom>
               Winter of Code
             </Typography>
@@ -45,7 +51,7 @@ const Footer = () => {
           </Grid>
 
           {/* Second Column */}
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={5}>
             <Typography variant="h6" gutterBottom>
               CONTACT
             </Typography>

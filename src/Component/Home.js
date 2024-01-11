@@ -1,9 +1,12 @@
-
-
+import Welcom from "./Welcom"
+import Featers from "./Featers"
 function Home(){
     
     return(
-        <h1>Home Page</h1>
+      <div>
+        <Welcom />
+        <Featers/>
+      </div>
     )
 }
 

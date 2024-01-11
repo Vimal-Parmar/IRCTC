@@ -15,6 +15,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import TrainIcon from '@mui/icons-material/Train';
 
 const drawerWidth = 240;
 const navItems = ['Home', 'BookList', 'AboutUs', 'Profile'];
@@ -61,6 +62,9 @@ const DrawerAppBar = (props) => {
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
             <MenuIcon />
+          </IconButton>
+          <IconButton color="inherit">
+            <TrainIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
             IRCTC
