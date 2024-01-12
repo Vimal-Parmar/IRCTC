@@ -16,11 +16,25 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import TrainIcon from '@mui/icons-material/Train';
+import {auth} from "../firebase-config";
+import { onAuthStateChanged } from 'firebase/auth';
+import { useEffect,useState } from 'react';
+
 
 const drawerWidth = 240;
 const navItems = ['Home', 'BookList', 'AboutUs', 'Profile'];
 
 const DrawerAppBar = (props) => {
+
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const navigate = useNavigate();
@@ -38,7 +52,7 @@ const DrawerAppBar = (props) => {
       <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }} onClick={() => navigate(`/${item}`)}>
+            <ListItemButton sx={{ textAlign: 'center' }} onClick={() => navigate(`/${item}/${user?.uid}`)}>
               <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
@@ -48,6 +62,7 @@ const DrawerAppBar = (props) => {
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
+  
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -71,7 +86,7 @@ const DrawerAppBar = (props) => {
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }} onClick={() => navigate(`/${item}`)}>
+              <Button key={item} sx={{ color: '#fff' }} onClick={() => navigate(`/${item}/${user?.uid}`)}>
                 {item}
               </Button>
             ))}
@@ -99,6 +114,7 @@ const DrawerAppBar = (props) => {
         <Toolbar />
       </Box>
     </Box>
+
   );
 };
 

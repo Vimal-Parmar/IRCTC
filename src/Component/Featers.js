@@ -1,5 +1,7 @@
 import { Grid, Container, Typography, Box } from "@mui/material";
-import TrainImage from "./TrainImage.png";
+import Interface from "./Images/Interface.png";
+import Available from "./Images/Available.png";
+import UserAccount from "./Images/UserAccount.png";
 
 export default function Features() {
   return (
@@ -17,7 +19,7 @@ export default function Features() {
 
           <Grid item xs={12} sm={6}>
             <Box paddingTop={{ xs: 2, sm: 4 }}>
-              <img src={TrainImage} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="Train" />
+              <img src={Interface} style={{ width: "60%", height: "100%", objectFit: "cover", borderRadius: "8px" }} alt="User-Friendly Interface" />
             </Box>
           </Grid>
         </Grid>
@@ -27,7 +29,7 @@ export default function Features() {
         <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
           <Grid item xs={12} sm={6}>
             <Box paddingTop={{ xs: 2, sm: 4 }}>
-              <img src={TrainImage} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="Train" />
+              <img src={Available} style={{ width: "60%", height: "100%", objectFit: "cover", borderRadius: "8px" }} alt="Real-Time Availability" />
             </Box>
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -54,7 +56,7 @@ export default function Features() {
 
           <Grid item xs={12} sm={6}>
             <Box paddingTop={{ xs: 2, sm: 4 }}>
-              <img src={TrainImage} style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="Train" />
+              <img src={UserAccount} style={{ width: "60%", height: "100%", objectFit: "cover", borderRadius: "8px" }} alt="Personalized User Accounts" />
             </Box>
           </Grid>
         </Grid>

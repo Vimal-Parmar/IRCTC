@@ -6,10 +6,19 @@ import SignUp from "./SignUp";
 import { Navigate, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
-
+import Navbar from "./Navbar"
+import { onAuthStateChanged } from 'firebase/auth';
+import { useEffect} from 'react';
 
 function SignIn() {
 
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const [formData, setFormData] = useState({
       email: "",
@@ -22,7 +31,7 @@ function SignIn() {
       event.preventDefault();
       try {
         await signInWithEmailAndPassword(auth, formData.email, formData.password);
-        navigate('/home');
+        navigate(`/home/${user?.uid}`);
       } catch (error) {
         console.error('Error signing in:', error.message);
       }

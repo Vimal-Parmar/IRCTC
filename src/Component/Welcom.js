@@ -1,5 +1,5 @@
 import { Grid, Container, Typography, Box, Paper } from "@mui/material";
-import TrainImage from "./TrainImage.png";
+import TrainImage from "./Images/TrainImage.png";
 
 export default function Welcome() {
   return (

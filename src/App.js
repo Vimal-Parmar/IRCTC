@@ -21,7 +21,7 @@ export default function App() {
 
         <Routes>
           <Route 
-            path="/home"
+            path="/home/:id"
             element={
               <>
                 <Navbar />
@@ -30,7 +30,7 @@ export default function App() {
             } 
           />
           <Route
-            path="/aboutus"
+            path="/aboutus/:id"
             element={
               <>
                 <Navbar />
@@ -39,7 +39,7 @@ export default function App() {
             }
           />
           <Route
-            path="/profile"
+            path="/profile/:id"
             element={
               <>
                 <Navbar />
@@ -48,7 +48,7 @@ export default function App() {
             }
           />
           <Route
-            path="/bookList"
+            path="/bookList/:id"
             element={
               <>
                 <Navbar />
