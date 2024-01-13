@@ -28,14 +28,15 @@ function SignIn() {
 
   let navigate = useNavigate();
   async function handleSubmit(event) {
-      event.preventDefault();
-      try {
-        await signInWithEmailAndPassword(auth, formData.email, formData.password);
-        navigate(`/home/${user?.uid}`);
-      } catch (error) {
-        console.error('Error signing in:', error.message);
-      }
+    event.preventDefault();
+    try {
+      await signInWithEmailAndPassword(auth, formData.email, formData.password);
+      navigate(`/home/${user?.uid}`);
+    } catch (error) {
+      alert("Login failed. Please check your email and password.");
+    }
   }
+  
 
 
   function handleChange(event) {
@@ -87,7 +88,7 @@ function SignIn() {
               />
 
               <Button variant="contained" color="primary" type="submit" sx={{ marginTop: 2 }}>
-                Submit
+                SignIn
               </Button>
 
             </form>

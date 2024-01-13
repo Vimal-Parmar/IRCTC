@@ -1,37 +1,31 @@
-import React  from "react"
-import { useState, useEffect } from "react"
-import {auth} from "../firebase-config"
-import { onAuthStateChanged } from "firebase/auth"
-import { Paper, Typography, Box } from "@mui/material"
+import React from "react";
+import { Paper, Typography, Box } from "@mui/material";
 import TrainImage from "./Images/TrainImage.png";
 
-export default function ProfileImage(props){
-   
-   
-
-    return(
-       <Paper elevation={2}>
-       <img src={TrainImage} sx ={{width : "100%", height : "100%"}}/>
-       <Box>
+export default function ProfileImage(props) {
+  return (
+    <Paper elevation={2} style={{ padding: "16px", textAlign: "center" }}>
+      <img src={TrainImage} style={{ width: "100%", height: "auto" }} alt="Train" />
+      <Box mt={2}>
         <Typography variant="h5">
-            {props.firstName}
+          {props.firstName ? props.firstName : "Firstname"}
         </Typography>
-       </Box>
-       <Box>
+      </Box>
+      <Box mt={1}>
         <Typography>
-            {props.userName}
+          User Name : {props.userName ? props.userName : "Username"}
         </Typography>
-       </Box>
-       <Box>
+      </Box>
+      <Box mt={1}>
         <Typography>
-            {props.email}
+          Email : {props.email ? props.email : "Email"}
         </Typography>
-       </Box>
-       <Box>
+      </Box>
+      <Box mt={1}>
         <Typography>
-            {props.phoneNo}
+          Phone No : {props.phonNo ? props.phonNo : "Phone Number"}
         </Typography>
-       </Box>
-       </Paper>
-    )
+      </Box>
+    </Paper>
+  );
 }

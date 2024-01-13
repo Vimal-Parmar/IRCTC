@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import Paper from "@mui/material/Paper";
 import { Grid, TextField, Button,Link,Typography } from '@mui/material';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -7,10 +6,18 @@ import {db} from "../firebase-config";
 import {collection,addDoc} from "firebase/firestore";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useState,useEffect } from 'react';
 
 
 function SignUp() {
 
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        onAuthStateChanged(auth, (currentUser) =>{
+            setUser(currentUser);
+        })
+    })
 
     const [formData, setFormData] = useState({
         email: "",
@@ -20,24 +27,20 @@ function SignUp() {
     const usersCollectionRef = collection(db, "Users");
 
     let navigate = useNavigate()
-    const handleSubmit = async(event) => {
-            event.preventDefault();
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-                const user = userCredential.user;
-                // Add additional user data to Firestore
-                console.log(userCredential);
-                await addDoc(usersCollectionRef, {
-                    uid: user.uid,
-                    email: user.email,
-                    // Add more fields as needed
-                });
-
-                navigate("/home");
-            } catch (error) {
-                console.error("Error creating user:", error.message);
-            }
-    }
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+          const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+          const user = userCredential.user;
+          await addDoc(usersCollectionRef, {
+            uid: user.uid,
+            email: user.email,
+          });
+          navigate(`/home/${user?.uid}`);
+        } catch (error) {
+          alert("Account creation failed. Please try again.");
+        }
+      };
 
     function handleChange(event) {
             setFormData((prevData) => {
@@ -88,7 +91,7 @@ function SignUp() {
 
                         
                         <Button variant="contained" color="primary" type="submit" sx={{ marginTop: 2 }}>
-                            Submit
+                            SignUp
                         </Button>
                         <Typography variant="body2" sx={{ marginTop: 2 }}>
                             Alredy have an account? <Link href="/SignIn" variant="body2">Sign In</Link>
