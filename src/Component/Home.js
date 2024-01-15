@@ -1,14 +1,21 @@
 import Welcom from "./Welcom";
-import Featers from "./Featers";
-import { useParams } from "react-router-dom";
+import Features from "./Featers";
+import TrainSearch from "./TrainSearch";
+import { Grid } from "@mui/material";
 
 function Home() {
-
   return (
-    <div>
-      <Welcom />
-      <Featers />
-    </div>
+    <Grid container spacing={2}>
+      <Grid item xs={12} margin={3}>
+        <Welcom />
+      </Grid>
+      <Grid item xs={12} margin={3}>
+        <TrainSearch />
+      </Grid>
+      <Grid item xs={12} margin={3}>
+        <Features />
+      </Grid>
+    </Grid>
   );
 }
 
