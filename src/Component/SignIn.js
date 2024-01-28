@@ -33,7 +33,7 @@ function SignIn() {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
       navigate(`/home/${user?.uid}`);
     } catch (error) {
-      alert("Login failed. Please check your email and password.");
+      alert("Login failed. Incorrect email or password.");
     }
   }
   

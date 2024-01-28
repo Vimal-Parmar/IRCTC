@@ -8,6 +8,8 @@ import AboutUs from "./Component/AboutUs";
 import Profile from "./Component/Profile";
 import BookList from "./Component/BookList";
 import Footer from './Component/Footer';
+import Payment from './Component/Payment';
+import CancelTikit from './Component/CancelTikit'
 
 export default function App() {
   return (
@@ -53,6 +55,24 @@ export default function App() {
               <>
                 <Navbar />
                 <BookList />
+              </>
+            }
+          />
+           <Route
+            path="/Payment"
+            element={
+              <>
+                <Navbar />
+                <Payment />
+              </>
+            }
+          />
+          <Route
+            path="/CancelTikit"
+            element={
+              <>
+                <Navbar />
+                <CancelTikit />
               </>
             }
           />

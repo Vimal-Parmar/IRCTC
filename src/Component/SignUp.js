@@ -38,7 +38,7 @@ function SignUp() {
           });
           navigate(`/home/${user?.uid}`);
         } catch (error) {
-          alert("Account creation failed. Please try again.");
+          alert("Account alredy exist.");
         }
       };
 
