@@ -12,33 +12,27 @@ export default function BookList() {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const data = await getDocs(usersCollectionRef);
-        data.forEach((doc) => {
+        const response = await getDocs(usersCollectionRef);
+        response.forEach((doc) => {
           const userData = doc.data();
+         
           if (userData.uid === id) {
-            setFormData((prevData) => ({ ...prevData, ...userData, id: doc.id }));
+            setFormData({ ...formData, ...userData, id: doc.id });
+            
           }
         });
+  
       } catch (error) {
         console.error('Error fetching user data:', error.message);
       }
     };
-
+  
     getUsers();
+  
   }, []);
 
-  const TrainData = formData.TrainDetail;
+ console.log(formData);
 
-  if (!TrainData) {
-    console.log("Not");
-  }
-
-  const TrainList = TrainData && TrainData.map((data) => (
-    <BookListCard
-      key={data.Price} 
-      data={data}
-    />
-  ));
-
-  return <div>{TrainData && TrainList}</div>;
+  
+  return <div>hi</div>;
 }

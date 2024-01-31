@@ -1,7 +1,14 @@
 import { Grid, Paper, Typography, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function SearchResultCard(props) {
   const data = props.data;
+  
+  let navigate = useNavigate();
+  
+  function handleClick() {
+    navigate('/Payment', { state: data });
+  }
 
   return (
     <Grid container spacing={2} alignItems="center">
@@ -44,6 +51,7 @@ export default function SearchResultCard(props) {
             variant="contained"
             color="primary"
             sx={{ marginTop: 2, backgroundColor: "#007BFF" }}
+            onClick={handleClick}
           >
             Book Now
           </Button>
