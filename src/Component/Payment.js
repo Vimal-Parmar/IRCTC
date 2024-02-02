@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 export default function Payment() {
 
 const location = useLocation();
-const data = location.state;
+// const data = location.state;
+const [data,setData] = useState({...location.state, itemNo : -1});
 const [fireData, setFireData] = useState({TrainDetails : []});
 let navigate = useNavigate();
 const [flag, setFlag] = useState(false);
@@ -59,10 +60,15 @@ const usersCollectionRef = collection(db, "Users");
 
   
   const handleSubmit = () => {
-    setFireData((prevData) => ({
+    
+    const size = fireData.TrainDetails.length + 1;
+    
+    setData((prevData) => ({...prevData, itemNo : size}))
+   {data.itemNo!==-1 && setFireData((prevData) => ({
       ...prevData,
       TrainDetails: [...prevData.TrainDetails, data],
-    }));
+    }));}
+    
     setFlag(true);
   };
 
@@ -71,21 +77,13 @@ const usersCollectionRef = collection(db, "Users");
       try {
         const userDoc = doc(db, "Users", fireData.id);
         await updateDoc(userDoc, fireData);
-        console.log("Success!!!"); 
-       navigate(`/bookList/${user?.uid}`);
+        navigate(`/bookList/${user?.uid}`);
       } catch (error) {
         console.error("Error updating document:", error.message);
         alert("Update failed. Please try again.");
-        
-      }
-    
-      
+      }  
     };
-
-    
       if(flag) updateFirebaseAndNavigate();
-      
-    
   }, [ fireData]);
   
 

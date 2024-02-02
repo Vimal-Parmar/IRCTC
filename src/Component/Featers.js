@@ -9,7 +9,7 @@ export default function Features() {
 
       <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
 
-        {/* User-Friendly Interface Section */}
+        
         <Grid item xs={12} sm={6} sx={{ backgroundColor: "#B9EBFF", padding: { xs: 2, sm: 5 } }} marginTop={6}>
           <Typography variant="h5">User-Friendly Interface</Typography>
           <Typography variant="body1" marginTop={3}>

@@ -1,8 +1,89 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { Button, Grid, Paper, Typography, Container } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { useNavigate } from "react-router-dom";
+import { auth, db } from "../firebase-config";
+import { updateDoc, doc, collection, getDocs } from "firebase/firestore";
+import { onAuthStateChanged } from 'firebase/auth';
+import {useLocation} from "react-router-dom";
 
 export default function CancelTicket() {
+
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+ 
+  const location = useLocation();
+  const itemNo = location.state;
+  console.log(itemNo);
+  let navigate = useNavigate();
+
+  const [fireData, setFireData] = useState({});
+
+  const [flag, setFlag] = useState(false);
+  const usersCollectionRef = collection(db, "Users");
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const response = await getDocs(usersCollectionRef);
+        response.forEach((doc) => {
+          const userData = doc.data();
+  
+          if (user && userData.uid === user.uid) {
+            setFireData({ ...fireData, ...userData, id: doc.id });
+          }
+        });
+  
+      } catch (error) {
+        console.error('Error fetching user data:', error.message);
+      }
+    };
+  
+    if (user) {
+      getUsers();
+    }
+  
+  }, [user]);
+
+
+  useEffect(() => {
+    const updateFirebaseAndNavigate = async () => {
+      try {
+        const userDoc = doc(db, "Users", fireData.id);
+        await updateDoc(userDoc, fireData);
+        console.log("success!");
+        navigate(`/bookList/${user?.uid}`);
+      } catch (error) {
+        console.error("Error updating document:", error.message);
+        alert("Update failed. Please try again.");
+        
+      }
+    };
+    if(flag) updateFirebaseAndNavigate();
+
+  }, [ fireData]);
+
+
+  function handleIgnore(){
+    navigate(`/bookList/${user?.uid}`);
+  }
+
+  function handleCancel(){
+    setFireData((prevData) => ({
+      ...prevData,
+      TrainDetails: prevData.TrainDetails.filter((item) => item.itemNo !== itemNo),
+    }));
+    setFlag(true);
+  }
+
+
   return (
     <Container sx = {{marginBottom : 5}}>
       <Paper sx={{ p: 2, textAlign: "center", maxWidth: "400px", margin: "auto", backgroundColor: "#f0f0f0" }}>
@@ -11,10 +92,10 @@ export default function CancelTicket() {
           Are You Sure?
         </Typography>
 
-        <Button variant="contained" sx={{ margin: 1 }} size="small">
+        <Button variant="contained" sx={{ margin: 1 }} size="small" onClick={handleIgnore}>
           Ignore
         </Button>
-        <Button variant="contained" color="error" sx={{ margin: 1 }} size="small">
+        <Button variant="contained" color="error" sx={{ margin: 1 }} size="small" onClick={handleCancel}>
           Cancel Ticket
         </Button>
       </Paper>

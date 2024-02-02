@@ -59,7 +59,7 @@ export default function TrainSearch() {
      // };
          
 
-      // fetchData();
+      // if(from.flag) fetchData();
          
   // }, [formData.from]);
 
@@ -85,7 +85,7 @@ export default function TrainSearch() {
   //       }
   //   };
 
-//     fetchData();
+//     if(to.flag) fetchData();
 
 // }, [formData.to]);
   
