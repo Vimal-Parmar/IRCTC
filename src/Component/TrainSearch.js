@@ -28,94 +28,122 @@ export default function TrainSearch() {
   });
 
   const [trainData , setTrainData] = useState(null);
-  const [from,setFrom] = useState({flag:false,data : [{"name":"BAJUD","eng_name":"BAJUD","code":"BJUD","state_name":"GUJARAT"},{"name":"BAJUD","eng_name":"BAJUD","code":"BJUD","state_name":"GUJARAT"},{"name":"BAJUD","eng_name":"BAJUD","code":"BJUD","state_name":"GUJARAT"}]});
-  const [to, setTo] = useState( {flag : false, data : [{"name":"BAJUD","eng_name":"BAJUD","code":"BJUD","state_name":"GUJARAT"}]});
+  const [from,setFrom] = useState({flag:false,data : [{name:"NEW DELHI",code:"NDLS",state_name:"DELHI"},{name:"NEW DELHI",code:"NDLS",state_name:"DELHI"},{name:"NEW DELHI",code:"NDLS",state_name:"DELHI"}]});
+  const [to, setTo] = useState( {flag : false, data : [{name:"NEW DELHI",code:"NDLS",state_name:"DELHI"},{name:"NEW DELHI",code:"NDLS",state_name:"DELHI"},{name:"NEW DELHI",code:"NDLS",state_name:"DELHI"}]});
   const [searchResult, setSearchResult] = useState({falg : false,data : [{train_number:"22221",train_name:"Rajdhani Express",from_sta:"16:43",to_sta:"09:55",from_station_name:"KALYAN JN",to_station_name:"DELHI HAZRAT NIZAMUDDIN",duration:"17:10",train_date:"02-02-2024",to_day:1},
                                                                           {train_number:"22221",train_name:"Rajdhani Express",from_sta:"16:43",to_sta:"09:55",from_station_name:"KALYAN JN",to_station_name:"DELHI HAZRAT NIZAMUDDIN",duration:"17:10",train_date:"02-02-2024",to_day:1}]});
 
 
   // useEffect(() => {
   //     const fetchData = async () => {
-          // const url = `https://irctc1.p.rapidapi.com/api/v1/searchStation?query=${formData.from}`;
-          // const options = {
-          //   method: 'GET',
-          //   headers: {
-          //     'X-RapidAPI-Key': 'cd652af138mshbc3150ce95fea2ap1bb5e5jsn08663c2e26e8',
-          //     'X-RapidAPI-Host': 'irctc1.p.rapidapi.com'
-          //   }
-          // };
-
-          // try {
-          //   const response = await fetch(url, options);
-          //   const result = await response.json();
-          //   setFrom((prevFrom) => ({ ...prevFrom, data : result.data }));
-         
-          //   console.log(result);
-          // } catch (error) {
-          //   console.error(error);
-          // }
-         
-          
-     // };
-         
-
-      // if(from.flag) fetchData();
-         
-  // }, [formData.from]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //       const url = `https://irctc1.p.rapidapi.com/api/v1/searchStation?query=${formData.to}`;
+  //       const url = `https://irctc1.p.rapidapi.com/api/v1/searchStation?query=${formData.from}`;
   //       const options = {
   //         method: 'GET',
   //         headers: {
-  //           'X-RapidAPI-Key': 'cd652af138mshbc3150ce95fea2ap1bb5e5jsn08663c2e26e8',
+  //           'X-RapidAPI-Key': 'c80551d8b3mshacfc31ebe2fe6e1p1dfd93jsn5b404ec019d0',
   //           'X-RapidAPI-Host': 'irctc1.p.rapidapi.com'
   //         }
   //       };
-
+        
   //       try {
   //         const response = await fetch(url, options);
-  //         const result = await response.text();
-          
-  //         setTo((prevTo) => ({ ...prevTo, data : result.data }));
-  //          console.log(result.data);
+  //         const result = await response.json();
+  //          setFrom((prevFrom) => ({ ...prevFrom, data : result.data }));
+  //        console.log(result.data);
+         
+  //         console.log(result);
   //       } catch (error) {
   //         console.error(error);
   //       }
-  //   };
+         
+          
+  //    };
+         
+
+  //     if(from.flag) {console.log("active"); fetchData();}
+         
+  // }, [formData.from]);
+
+
+
+
+//   useEffect(() => {
+//         const fetchData = async () => {
+//         const url = `https://irctc1.p.rapidapi.com/api/v1/searchStation?query=${formData.to}`;
+//         const options = {
+//           method: 'GET',
+//           headers: {
+//             'X-RapidAPI-Key': 'c80551d8b3mshacfc31ebe2fe6e1p1dfd93jsn5b404ec019d0',
+//             'X-RapidAPI-Host': 'irctc1.p.rapidapi.com'
+//           }
+//         };
+        
+//         try {
+//           const response = await fetch(url, options);
+//           const result = await response.json();
+//            setTo((prevTo) => ({ ...prevTo, data : result.data }));
+//          console.log(result.data);
+         
+//           console.log(result);
+//         } catch (error) {
+//           console.error(error);
+//         }
+         
+          
+//      };
 
 //     if(to.flag) fetchData();
 
 // }, [formData.to]);
   
   
- 
+//  useEffect(() => {
+
+//         const fetchData = async () => {
+//           const date = formData.date;
+
+          
+//             const opt = {
+//               year: 'numeric',
+//               month: '2-digit',
+//               day: '2-digit',
+//               timeZone: 'Asia/Kolkata'
+//             };
+          
+//             const formattedDate = date.toLocaleDateString('en-IN', opt).split('/').reverse().join('-');
+//             console.log(formattedDate);
+         
+          
+          
+          
+//           const url = `https://irctc1.p.rapidapi.com/api/v3/trainBetweenStations?fromStationCode=${formData.from}&toStationCode=${formData.to}&dateOfJourney=${formattedDate}`;
+//           const options = {
+//             method: 'GET',
+//             headers: {
+//               'X-RapidAPI-Key': '96250f1e8fmsh1949ec684ff7520p10deb7jsna6e3f7a38d07',
+//               'X-RapidAPI-Host': 'irctc1.p.rapidapi.com'
+//             }
+//           };       
+
+//           try {
+//             const response = await fetch(url, options);
+//             const result = await response.json();
+//             setSearchResult((prevData) => ({ ...prevData, data: result.data }));
+//             console.log(result);
+//             console.log(result.data);
+//           } catch (error) {
+//             console.error(error);
+//           }
+
+//           console.log("run");
+//       };
+
+//     if(searchResult.flag === true) fetchData();
+//  },[searchResult.flag])
 
   
 
   function handleSearch() {
-    // const { from, to, date, class: travelClass, category } = formData;
-  
-    // const formattedDate = date ? date.toISOString().split('T')[0] : '';
-    // const url = `https://irctc1.p.rapidapi.com/api/v3/trainBetweenStations?fromStationCode=${from}&toStationCode=${to}&dateOfJourney=${formattedDate}&class=${travelClass}&category=${category}`;
-  
-    // const options = {
-    //   method: 'GET',
-    //   headers: {
-    //     'X-RapidAPI-Key': '4b42f42023msh9311abe3b5f3d1ep1a4713jsnfc0dcab25431',
-    //     'X-RapidAPI-Host': 'irctc1.p.rapidapi.com',
-    //   },
-    // };
-  
-    // try {
-    //   const response = await fetch(url, options);
-    //   const result = await response.json();
-    //   setSearchResult((prevData) => ({ ...prevData, data: result.data }));
-    //   console.log(result);
-    // } catch (error) {
-    //   console.error(error);
-    // }
     setSearchResult(prevData => ({...prevData, flag : true}));
   }
 
@@ -147,14 +175,14 @@ export default function TrainSearch() {
   
   return (
     <Container maxWidth="sm" sx={{ padding: 4, borderRadius: 8 }}>
-      <Paper elevation={3} marginBottom={3}>
+      <Paper elevation={3} >
         <Box padding={5}>
           <Typography variant="h5" textAlign={"center"} gutterBottom>
             Start Your Journey
           </Typography>
 
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} marginBottom={2}>
+            <Grid item xs={12} sm={12} sx={{marginBottom : 3}}>
               <TextField
                 name="from"
                 type="text"
@@ -163,19 +191,19 @@ export default function TrainSearch() {
                 onChange={handleChange}
                 value={formData.from}
               />
-                
+                {/* ///////////////////////////////////////////// serch in from BVI///////////////////////////////////////////////////// */}
             </Grid>
            
               {from.flag &&
                 <Grid container spacing={{ xs: 1, sm: 1, md: 4, lg: 5 }} justifyContent="center" >
-                  {from.data.map((data) => (
+                  { from.data && from.data.map((data) => (
                     <Grid item key={data.code} xs={12} sm={12} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                       <Button
                         onClick={()=>{
                           setFormData((prevData) => {
                             return {
                               ...prevData,
-                              from: data.name,
+                              from: data.code,
                             };
                           });
                           setFrom((prevFrom) => ({ ...prevFrom, flag: false }));
@@ -198,7 +226,7 @@ export default function TrainSearch() {
               </Button>
             </Grid>
 
-            <Grid item xs={12} sm={12} marginBottom={3}>
+            <Grid item xs={12} sm={12} sx={{marginBottom : 3}}>
               <TextField
                 name="to"
                 type="text"
@@ -207,19 +235,21 @@ export default function TrainSearch() {
                 onChange={handleChange}
                 value={formData.to}
               />
+
+              {/* ////////////////////////////////////////// serch in to NDLS //////////////////////////////////////////////// */}
             </Grid>
             
             {to.flag &&
 
             <Grid container spacing={{ xs: 1, sm: 1, md: 4, lg: 5 }} marginTop={3}>
-              {to.data.map((data) => (
+              {to.data && to.data.map((data) => (
                 <Grid item key={data.code} xs={12} sm={12} sx={{ display: "flex", justifyContent: "center", alignItems : "center" }}>
                     <Button
                       onClick={()=>{
                         setFormData((prevData) => {
                           return {
                             ...prevData,
-                            to : data.name,
+                            to : data.code,
                           };
                         });
                         setTo((prevTo) => ({ ...prevTo, flag: false }));
@@ -292,7 +322,7 @@ export default function TrainSearch() {
 
       {searchResult.flag && 
         <Grid container spacing={{ xs: 1, sm: 1, md: 4, lg: 5 }} justifyContent="center" >
-        {searchResult.data.map((data) => (
+        {searchResult.data && searchResult.data.map((data) => (
           <Grid item key={data.train_number} xs={12} sm={12} sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop : 1 }}>
            
               <SearchResultCard data = {data}/>
