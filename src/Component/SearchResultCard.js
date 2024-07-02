@@ -7,7 +7,7 @@ export default function SearchResultCard(props) {
   let navigate = useNavigate();
   
   function handleClick() {
-    navigate('/Payment', { state: data });
+    navigate('/Payment', {state: data});
   }
 
   return (

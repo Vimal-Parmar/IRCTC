@@ -5,22 +5,29 @@ import { auth, db } from "../firebase-config";
 import { updateDoc, doc, collection, getDocs } from "firebase/firestore";
 import { Grid, Box, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { onAuthStateChanged } from 'firebase/auth';
+
 
 
 export default function BookList() {
   const { id } = useParams();
-
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+      onAuthStateChanged(auth, (currentUser) =>{
+          setUser(currentUser);
+      })
+  })
   const usersCollectionRef = collection(db, "Users");
  
   const [trainDetails, setTrainDetails] = useState(null);
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const response = await getDocs(usersCollectionRef);
-        response.forEach((doc) => {
+        const data = await getDocs(usersCollectionRef);
+        data.docs.forEach((doc) => {
           const userData = doc.data();
 
-          if (userData.uid === id) {
+          if (userData.email === user.email) {
             setTrainDetails(userData.TrainDetails);
           }
         });
@@ -30,8 +37,8 @@ export default function BookList() {
       }
     };
 
-    getUsers();
-  }, []);
+    if(user) getUsers();
+  }, [user]);
 
   
   let navigate = useNavigate();

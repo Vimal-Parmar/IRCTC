@@ -32,11 +32,11 @@ export default function CancelTicket() {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const response = await getDocs(usersCollectionRef);
-        response.forEach((doc) => {
+        const data = await getDocs(usersCollectionRef);
+        data.docs.forEach((doc) => {
           const userData = doc.data();
   
-          if (user && userData.uid === user.uid) {
+          if (userData.email === user.email) {
             setFireData({ ...fireData, ...userData, id: doc.id });
           }
         });

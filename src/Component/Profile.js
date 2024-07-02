@@ -13,20 +13,33 @@ import {
 import { auth, db } from "../firebase-config";
 import { updateDoc, doc, collection, getDocs } from "firebase/firestore";
 import ProfileImage from "./ProfileImage";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function ProfileForm() {
   const { id } = useParams();
   const [formData, setFormData] = useState({});
   const usersCollectionRef = collection(db, "Users");
+  // console.log(id);
+  const [user, setUser] = useState({});
+
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
 
 
   useEffect(() => {
     const getUsers = async () => {
       try {
         const data = await getDocs(usersCollectionRef);
-        data.forEach((doc) => {
+        
+        data.docs.forEach((doc) => {
           const userData = doc.data();
-          if (userData.uid === id) {
+          if (userData.email === user.email) {
             setFormData((prevData) => ({ ...prevData, ...userData, id: doc.id }));
           }
         });
@@ -35,9 +48,11 @@ export default function ProfileForm() {
         console.error('Error fetching user data:', error.message);
       }
     };
+    if(user)
+     getUsers();
+  }, [user]);
 
-    getUsers();
-  }, []);
+  
 
   function handleChange(event) {
     setFormData((prevData) => ({
@@ -49,6 +64,7 @@ export default function ProfileForm() {
   const handleSubmit = async () => {
     try {
         const userDoc = doc(db, "Users", formData.id);
+        console.log(userDoc.data);
         await updateDoc(userDoc, formData);
         alert("Update successful!");
       } catch (error) {

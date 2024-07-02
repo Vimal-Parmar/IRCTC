@@ -36,11 +36,11 @@ const usersCollectionRef = collection(db, "Users");
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const response = await getDocs(usersCollectionRef);
-        response.forEach((doc) => {
+        const data = await getDocs(usersCollectionRef);
+        data.docs.forEach((doc) => {
           const userData = doc.data();
   
-          if (user && userData.uid === user.uid) {
+          if (userData.email === user.email) {
             setFireData({ ...fireData, ...userData, id: doc.id });
             
           }
@@ -60,18 +60,22 @@ const usersCollectionRef = collection(db, "Users");
 
   
   const handleSubmit = () => {
-    
     const size = fireData.TrainDetails.length + 1;
     
-    setData((prevData) => ({...prevData, itemNo : size}))
-   {data.itemNo!==-1 && setFireData((prevData) => ({
-      ...prevData,
-      TrainDetails: [...prevData.TrainDetails, data],
-    }));}
-    
+    setData((prevData) => {
+      const updatedData = { ...prevData, itemNo: size };
+  
+      setFireData((prevFireData) => ({
+        ...prevFireData,
+        TrainDetails: [...prevFireData.TrainDetails, updatedData],
+      }));
+  
+      return updatedData;
+    });
+  
     setFlag(true);
   };
-
+  
   useEffect(() => {
     const updateFirebaseAndNavigate = async () => {
       try {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Paper, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -6,7 +6,18 @@ export default function BookListCard(props) {
   const data = props.data;
   const handleClick = props.handleClick;
   const navigate = useNavigate();
+  const [flag, setFlag] = useState(false);
+  const [Track, setTrack] = useState(null);
 
+
+  useEffect(()=> {
+
+    const fetchData = async () => {
+      
+    }
+
+    fetchData();
+  }, []);
  
 
   return (
@@ -45,7 +56,10 @@ export default function BookListCard(props) {
               </Typography>
             </Grid>
           </Grid>
-
+          <Button onClick={() => setFlag(!flag)} >
+            Track Train
+          </Button>
+          {flag && <h1>{data.train_number}</h1>}
           <Button
             variant="contained"
             color="primary"

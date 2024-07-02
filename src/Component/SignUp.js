@@ -32,8 +32,8 @@ function SignUp() {
         try {
           const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
           const user = userCredential.user;
+          console.log(user);
           await addDoc(usersCollectionRef, {
-            uid: user.uid,
             email: user.email,
           });
           navigate(`/home/${user?.uid}`);

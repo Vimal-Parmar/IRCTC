@@ -34,35 +34,35 @@ export default function TrainSearch() {
                                                                           {train_number:"22221",train_name:"Rajdhani Express",from_sta:"16:43",to_sta:"09:55",from_station_name:"KALYAN JN",to_station_name:"DELHI HAZRAT NIZAMUDDIN",duration:"17:10",train_date:"02-02-2024",to_day:1}]});
 
 
-  // useEffect(() => {
-  //     const fetchData = async () => {
-  //       const url = `https://irctc1.p.rapidapi.com/api/v1/searchStation?query=${formData.from}`;
-  //       const options = {
-  //         method: 'GET',
-  //         headers: {
-  //           'X-RapidAPI-Key': 'c80551d8b3mshacfc31ebe2fe6e1p1dfd93jsn5b404ec019d0',
-  //           'X-RapidAPI-Host': 'irctc1.p.rapidapi.com'
-  //         }
-  //       };
+//   useEffect(() => {
+//       const fetchData = async () => {
+//         const url = `https://irctc1.p.rapidapi.com/api/v1/searchStation?query=${formData.from}`;
+//         const options = {
+//           method: 'GET',
+//           headers: {
+//             'X-RapidAPI-Key': '5e47e6343emsh9504351fbe54c8ep167f2ejsn43a818b2ff92',
+//             'X-RapidAPI-Host': 'irctc1.p.rapidapi.com'
+//           }
+//         };
         
-  //       try {
-  //         const response = await fetch(url, options);
-  //         const result = await response.json();
-  //          setFrom((prevFrom) => ({ ...prevFrom, data : result.data }));
-  //        console.log(result.data);
+//         try {
+//           const response = await fetch(url, options);
+//           const result = await response.json();
+//            setFrom((prevFrom) => ({ ...prevFrom, data : result.data }));
+//          console.log(result.data);
          
-  //         console.log(result);
-  //       } catch (error) {
-  //         console.error(error);
-  //       }
+//           console.log(result);
+//         } catch (error) {
+//           console.error(error);
+//         }
          
           
-  //    };
+//      };
          
 
-  //     if(from.flag) {console.log("active"); fetchData();}
+//       if(from.flag) {console.log("active"); fetchData();}
          
-  // }, [formData.from]);
+//   }, [formData.from]);
 
 
 
@@ -73,7 +73,7 @@ export default function TrainSearch() {
 //         const options = {
 //           method: 'GET',
 //           headers: {
-//             'X-RapidAPI-Key': 'c80551d8b3mshacfc31ebe2fe6e1p1dfd93jsn5b404ec019d0',
+//             'X-RapidAPI-Key': '5e47e6343emsh9504351fbe54c8ep167f2ejsn43a818b2ff92',
 //             'X-RapidAPI-Host': 'irctc1.p.rapidapi.com'
 //           }
 //         };
@@ -120,7 +120,7 @@ export default function TrainSearch() {
 //           const options = {
 //             method: 'GET',
 //             headers: {
-//               'X-RapidAPI-Key': '96250f1e8fmsh1949ec684ff7520p10deb7jsna6e3f7a38d07',
+//               'X-RapidAPI-Key': '5e47e6343emsh9504351fbe54c8ep167f2ejsn43a818b2ff92',
 //               'X-RapidAPI-Host': 'irctc1.p.rapidapi.com'
 //             }
 //           };       
@@ -207,7 +207,7 @@ export default function TrainSearch() {
                             };
                           });
                           setFrom((prevFrom) => ({ ...prevFrom, flag: false }));
-                          
+                      
                         }}
                         style={{ width: "90%", padding: 0, display: "flex", alignItems: "center" }}
                       >
