@@ -3,7 +3,7 @@ import Paper from "@mui/material/Paper";
 import { Grid, TextField, Button,Link,Typography } from '@mui/material';
 import { Navigate, useNavigate } from 'react-router-dom';
 import {db} from "../firebase-config";
-import {collection,addDoc} from "firebase/firestore";
+import {collection,addDoc, doc, setDoc} from "firebase/firestore";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -25,6 +25,7 @@ function SignUp() {
     })
 
     const usersCollectionRef = collection(db, "Users");
+    
 
     let navigate = useNavigate()
     const handleSubmit = async (event) => {
@@ -32,11 +33,14 @@ function SignUp() {
         try {
           const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
           const user = userCredential.user;
-          console.log(user);
-          await addDoc(usersCollectionRef, {
-            email: user.email,
+          const useRef = doc(usersCollectionRef, formData.email);
+        //   await addDoc(usersCollectionRef, {
+        //     email: user.email,
+        //   });
+          await setDoc(useRef,{
+                email : formData.email
           });
-          navigate(`/home/${user?.uid}`);
+          navigate("/home");
         } catch (error) {
           alert("Account alredy exist.");
         }

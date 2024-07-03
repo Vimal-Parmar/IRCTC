@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import BookListCard from "./BookListCard";
 import { useParams } from "react-router-dom";
 import { auth, db } from "../firebase-config";
-import { updateDoc, doc, collection, getDocs } from "firebase/firestore";
+import { updateDoc, doc, collection, getDocs, getDoc } from "firebase/firestore";
 import { Grid, Box, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from 'firebase/auth';
@@ -23,15 +23,10 @@ export default function BookList() {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const data = await getDocs(usersCollectionRef);
-        data.docs.forEach((doc) => {
-          const userData = doc.data();
-
-          if (userData.email === user.email) {
+            const useRef = doc(usersCollectionRef, user.email);
+            const userDoc = await getDoc(useRef);
+            const userData = userDoc.data();
             setTrainDetails(userData.TrainDetails);
-          }
-        });
-
       } catch (error) {
         console.error("Error fetching user data:", error.message);
       }

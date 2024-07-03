@@ -4,7 +4,7 @@ import { Button, Grid, Paper, Typography, Container } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase-config";
-import { updateDoc, doc, collection, getDocs } from "firebase/firestore";
+import { updateDoc, doc, collection, getDocs, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from 'firebase/auth';
 import {useLocation} from "react-router-dom";
 
@@ -21,7 +21,7 @@ export default function CancelTicket() {
  
   const location = useLocation();
   const itemNo = location.state;
-  console.log(itemNo);
+
   let navigate = useNavigate();
 
   const [fireData, setFireData] = useState({});
@@ -32,15 +32,10 @@ export default function CancelTicket() {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const data = await getDocs(usersCollectionRef);
-        data.docs.forEach((doc) => {
-          const userData = doc.data();
-  
-          if (userData.email === user.email) {
-            setFireData({ ...fireData, ...userData, id: doc.id });
-          }
-        });
-  
+        const useRef = doc(usersCollectionRef, user.email);
+        const userDoc = await getDoc(useRef);
+        const userData = userDoc.data();
+        setFireData(userData);
       } catch (error) {
         console.error('Error fetching user data:', error.message);
       }
@@ -56,10 +51,9 @@ export default function CancelTicket() {
   useEffect(() => {
     const updateFirebaseAndNavigate = async () => {
       try {
-        const userDoc = doc(db, "Users", fireData.id);
-        await updateDoc(userDoc, fireData);
-        console.log("success!");
-        navigate(`/bookList/${user?.uid}`);
+        const useRef = doc(usersCollectionRef, user.email);
+        await updateDoc(useRef, fireData);
+        navigate("/bookList");
       } catch (error) {
         console.error("Error updating document:", error.message);
         alert("Update failed. Please try again.");
@@ -72,14 +66,16 @@ export default function CancelTicket() {
 
 
   function handleIgnore(){
-    navigate(`/bookList/${user?.uid}`);
+    navigate("/bookList");
   }
 
   function handleCancel(){
-    setFireData((prevData) => ({
-      ...prevData,
-      TrainDetails: prevData.TrainDetails.filter((item) => item.itemNo !== itemNo),
-    }));
+    if(fireData.TrainDetails){
+      setFireData((prevData) => ({
+        ...prevData,
+        TrainDetails: prevData.TrainDetails.filter((item) => item.itemNo !== itemNo),
+      }));
+    }
     setFlag(true);
   }
 

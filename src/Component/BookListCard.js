@@ -8,16 +8,6 @@ export default function BookListCard(props) {
   const navigate = useNavigate();
   const [flag, setFlag] = useState(false);
   const [Track, setTrack] = useState(null);
-
-
-  useEffect(()=> {
-
-    const fetchData = async () => {
-      
-    }
-
-    fetchData();
-  }, []);
  
 
   return (
@@ -56,10 +46,7 @@ export default function BookListCard(props) {
               </Typography>
             </Grid>
           </Grid>
-          <Button onClick={() => setFlag(!flag)} >
-            Track Train
-          </Button>
-          {flag && <h1>{data.train_number}</h1>}
+         
           <Button
             variant="contained"
             color="primary"

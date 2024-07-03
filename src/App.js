@@ -16,14 +16,14 @@ export default function App() {
     <Router>
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Routes>
-          <Route path="/" element={<Navigate to="/SignIn" />} />
+          <Route path="/" element={<SignIn />} />
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/SignUp" element={<SignUp />} />
         </Routes>
 
         <Routes>
           <Route 
-            path="/home/:id"
+            path="/home"
             element={
               <>
                 <Navbar />
@@ -32,7 +32,7 @@ export default function App() {
             } 
           />
           <Route
-            path="/aboutus/:id"
+            path="/aboutus"
             element={
               <>
                 <Navbar />
@@ -41,7 +41,7 @@ export default function App() {
             }
           />
           <Route
-            path="/profile/:id"
+            path="/profile"
             element={
               <>
                 <Navbar />
@@ -50,7 +50,7 @@ export default function App() {
             }
           />
           <Route
-            path="/bookList/:id"
+            path="/bookList"
             element={
               <>
                 <Navbar />

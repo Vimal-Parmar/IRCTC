@@ -31,7 +31,7 @@ function SignIn() {
     event.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      navigate(`/home/${user?.uid}`);
+      navigate("/home");
     } catch (error) {
       alert("Login failed. Incorrect email or password.");
     }

@@ -2,7 +2,7 @@ import React, { useState , useEffect} from "react";
 import {useLocation} from "react-router-dom";
 import {Paper,TextField,Typography,Grid,Select,MenuItem,Button,Container} from "@mui/material";
 import { auth, db } from "../firebase-config";
-import { updateDoc, doc, collection, getDocs } from "firebase/firestore";
+import { updateDoc, doc, collection, getDocs, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +10,7 @@ export default function Payment() {
 
 const location = useLocation();
 // const data = location.state;
-const [data,setData] = useState({...location.state, itemNo : -1});
+
 const [fireData, setFireData] = useState({TrainDetails : []});
 let navigate = useNavigate();
 const [flag, setFlag] = useState(false);
@@ -35,53 +35,42 @@ const usersCollectionRef = collection(db, "Users");
   
   useEffect(() => {
     const getUsers = async () => {
+    
       try {
-        const data = await getDocs(usersCollectionRef);
-        data.docs.forEach((doc) => {
-          const userData = doc.data();
-  
-          if (userData.email === user.email) {
-            setFireData({ ...fireData, ...userData, id: doc.id });
-            
-          }
-        });
-  
+          const userRef = doc(usersCollectionRef, user.email);
+          const userDoc = await getDoc(userRef);
+          setFireData((prevData) => ({ ...prevData, ...userDoc.data() }));
       } catch (error) {
         console.error('Error fetching user data:', error.message);
       }
     };
-  
     if (user) {
       getUsers();
     }
-  
+   
   }, [user]);
   
 
   
   const handleSubmit = () => {
-    const size = fireData.TrainDetails.length + 1;
-    
-    setData((prevData) => {
-      const updatedData = { ...prevData, itemNo: size };
-  
-      setFireData((prevFireData) => ({
-        ...prevFireData,
-        TrainDetails: [...prevFireData.TrainDetails, updatedData],
-      }));
-  
-      return updatedData;
-    });
-  
-    setFlag(true);
+        //console.log(fireData);
+        const size = fireData.TrainDetails.length + 1;
+        const updatedData = { ...location.state, itemNo: size };
+        setFireData((prevFireData) => ({
+          ...prevFireData,
+          TrainDetails: [...prevFireData.TrainDetails, updatedData],
+        }));
+        //console.log(fireData);
+        setFlag(true);
+        
   };
   
   useEffect(() => {
     const updateFirebaseAndNavigate = async () => {
       try {
-        const userDoc = doc(db, "Users", fireData.id);
-        await updateDoc(userDoc, fireData);
-        navigate(`/bookList/${user?.uid}`);
+        const useRef = doc(usersCollectionRef, user.email);
+        await updateDoc(useRef, fireData);
+        navigate("/bookList");
       } catch (error) {
         console.error("Error updating document:", error.message);
         alert("Update failed. Please try again.");

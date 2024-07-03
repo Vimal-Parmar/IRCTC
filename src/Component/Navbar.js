@@ -22,7 +22,7 @@ import { useEffect,useState } from 'react';
 
 
 const drawerWidth = 240;
-const navItems = ['Home', 'BookList', 'AboutUs', 'Profile'];
+const navItems = ['home', 'bookList', 'aboutUs', 'profile'];
 
 const DrawerAppBar = (props) => {
 
@@ -53,7 +53,7 @@ const DrawerAppBar = (props) => {
       <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }} onClick={() => navigate(`/${item}/${user?.uid}`)}>
+            <ListItemButton sx={{ textAlign: 'center' }} onClick={() => navigate(`/${item}`)}>
               <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
@@ -87,7 +87,7 @@ const DrawerAppBar = (props) => {
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }} onClick={() => navigate(`/${item}/${user?.uid}`)}>
+              <Button key={item} sx={{ color: '#fff' }} onClick={() => navigate(`/${item}`)}>
                 {item}
               </Button>
             ))}
