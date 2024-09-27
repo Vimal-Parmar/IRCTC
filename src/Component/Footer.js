@@ -39,12 +39,10 @@ const Footer = () => {
         <Grid container spacing={6}>
           {/* First Column */}
           <Grid item xs={12} md={5}>
-            <Typography variant="h6" gutterBottom>
-              Winter of Code
-            </Typography>
+            
             <Box>
               <Typography variant="body2" color="inherit">
-                This is winter of code 6.0 IRCTC project. 
+                This is IRCTC project. 
                 Which is made using ReactJs, Firebase, and MUI.
               </Typography>
             </Box>
